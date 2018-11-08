@@ -1,0 +1,33 @@
+{
+  "name": "fx-data-getter",
+  "version": "1.0.0",
+  "description": "Forex data getter from OANDA API services, calculating some indicators and storing in mongodb",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "10.x"
+  },
+  "keywords": [
+    "forex",
+    "foreign-exchange",
+    "indicators",
+    "stochastic",
+    "moving average",
+    "bollinger bands",
+    "fx data"
+  ],
+  "author": "mik3dev",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4",
+    "lodash": "^4.17.11",
+    "moment": "^2.22.2",
+    "mongoose": "^5.3.8",
+    "morgan": "^1.9.1"
+  }
+}
