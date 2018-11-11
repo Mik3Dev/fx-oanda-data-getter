@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
             counts.M5 = count;
             candleModel.count({'timeframe': 'M15'}).then(count => {
                 counts.M15 = count;
-                candleModel.count({'timeframe': 'M100'}).then(count => {
+                candleModel.count({'timeframe': 'H1'}).then(count => {
                     counts.H1 = count;
                     res.send(counts);
                 });
