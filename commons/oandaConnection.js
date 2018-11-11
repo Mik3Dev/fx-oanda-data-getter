@@ -1,10 +1,11 @@
 const axios = require('axios');
 const _ = require('lodash');
-require('dotenv').load();
-const token = process.env.OANDA_TOKEN;
+const config = require('../config/config');
+const token = config.OANDA_TOKEN;
+const baseURL = config.OandaApiBaseURL;
 
 module.exports =  {
-    baseURL: '	https://api-fxpractice.oanda.com',
+    baseURL: baseURL,
     getCandles(instrument, timeFrame, count=100){
         const connectionString = `${this.baseURL}/v3/instruments/${instrument}/candles?granularity=${timeFrame}&count=${count}`;
         return axios({
