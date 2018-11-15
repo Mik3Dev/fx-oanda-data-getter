@@ -14,6 +14,8 @@ const OandaApiBaseURL = process.env.OandaApiBaseURL;
 const nQueryCandles = process.env.nQueryCandles;
 const OANDA_TOKEN = process.env.OANDA_TOKEN;
 const timer = process.env.timer;
+const stochLowerLimit = process.env.stochLowerLimit;
+const stochHigherLimit = process.env.stochHigherLimit;
 
 module.exports =  {
     PORT: 3000,
@@ -33,4 +35,6 @@ module.exports =  {
     bolBandStdDev,
     AOShortPeriod,
     AOLongPeriod,
+    stochLowerLimit,
+    stochHigherLimit
 }

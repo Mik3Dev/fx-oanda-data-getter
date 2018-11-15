@@ -47,7 +47,11 @@ const candleSchema = new Schema({
     indicatorBolBand: Number,
     indicatorUpperBand: Number,
     indicatorLowerBand: Number,
-    indicatorAwesomeOsc: Number
+    indicatorAwesomeOsc: Number,
+    signal: {
+        a: String,
+        b: String
+    }
 });
 
 module.exports = mongoose.model('Candle', candleSchema);
