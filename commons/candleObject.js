@@ -92,10 +92,10 @@ function calcAwesomeOsc(serie, longPeriod=config.AOLongPeriod, shortPeriod=confi
     return shortSma - longSma;
 }
 
-function signalA(open, upperBolBand, lowerBolBand, stochLong, stochShort){
-    if(open>=upperBolBand && stochLong>=config.stochHigherLimit && stochShort>=config.stochHigherLimit){
+function signalA(open, bolBand, stochLong, stochShort){
+    if(open>=bolBand.upperBand && stochLong>=config.stochHigherLimit && stochShort>=config.stochHigherLimit){
         return 'SELL'
-    } else if(open<=lowerBolBand && stochLong<=config.stochLowerLimit && stochShort<=config.stochLowerLimit){
+    } else if(open<=bolBand.lowerBand && stochLong<=config.stochLowerLimit && stochShort<=config.stochLowerLimit){
         return 'BUY'
     } else {
         return 'NEUTRAL'
@@ -159,10 +159,8 @@ class Candle {
                     const indicatorWma = calcWma(priceArray, config.wmaPeriod);
                     const indicatorBolBand = calcBolBand(priceArray, config.bolBandPeriod, config.bolBandStdDev);
                     const indicatorAwesomeOsc = calcAwesomeOsc(priceArray, config.AOLongPeriod, config.AOShortPeriod);
-                    const signal = {
-                        a: signalA(Number.parseFloat(this.open), indicatorUpperBand, indicatorLowerBand, indicatorStochLong, indicatorStochShort),
-                        b: signalB(indicatorWma, indicatorEma, indicatorAwesomeOsc)
-                    }
+                    const A = signalA(Number.parseFloat(this.open), indicatorBolBand, indicatorStochLong, indicatorStochShort);
+                    const B = signalB(indicatorWma, indicatorEma, indicatorAwesomeOsc);
                     
                     const newCandle = new CandleModel({
                         'instrument': this.instrument,
@@ -183,7 +181,8 @@ class Candle {
                         'indicatorUpperBand': indicatorBolBand.upperBand,
                         'indicatorLowerBand': indicatorBolBand.lowerBand,
                         'indicatorAwesomeOsc': indicatorAwesomeOsc,
-                        'signal': signal
+                        'signalA': A,
+                        'signalB': B
                     });
                     newCandle.save()
                     .then(r => {
@@ -218,18 +217,20 @@ class Candle {
                         const indicatorWma = calcWma(priceArray, config.wmaPeriod);
                         const indicatorBolBand = calcBolBand(priceArray, config.bolBandPeriod, config.bolBandStdDev);
                         const indicatorAwesomeOsc = calcAwesomeOsc(priceArray, config.AOLongPeriod, config.AOShortPeriod);
-                        const signal = {
-                            a: signalA(Number.parseFloat(this.open), indicatorUpperBand, indicatorLowerBand, indicatorStochLong, indicatorStochShort),
-                            b: signalB(indicatorWma, indicatorEma, indicatorAwesomeOsc)
-                        }
+                        const A = signalA(Number.parseFloat(this.open), indicatorBolBand, indicatorStochLong, indicatorStochShort);
+                        const B = signalB(indicatorWma, indicatorEma, indicatorAwesomeOsc);
+
 
                         CandleModel.findOneAndUpdate({
                             'instrument': this.instrument,
                             'timeframe': this.timeframe,
                             'time': this.time
                         }, {
+                            'instrument': this.instrument,
+                            'timeframe': this.timeframe,
                             'complete': this.complete,
                             'volume': this.volume,
+                            'time': this.time,                                 
                             'open': this.open,
                             'high': this.high,
                             'low': this.low,
@@ -243,7 +244,8 @@ class Candle {
                             'indicatorUpperBand': indicatorBolBand.upperBand,
                             'indicatorLowerBand': indicatorBolBand.lowerBand,
                             'indicatorAwesomeOsc': indicatorAwesomeOsc,
-                            'signal': signal
+                            'signalA': A,
+                            'signalB': B
                         }).then(r => {
                             console.log(`Register ${r._id} successfully updated`);
                         }).catch(e => console.log(`Unabled to store the ${this.instrument} - ${this.time} candle in timeframe ${this.timeframe}`))

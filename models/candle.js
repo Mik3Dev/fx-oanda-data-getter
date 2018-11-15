@@ -48,10 +48,10 @@ const candleSchema = new Schema({
     indicatorUpperBand: Number,
     indicatorLowerBand: Number,
     indicatorAwesomeOsc: Number,
-    signal: {
-        a: String,
-        b: String
-    }
+    signalA: String,
+    signalB: String
+},{
+    timestamps: true
 });
 
 module.exports = mongoose.model('Candle', candleSchema);
