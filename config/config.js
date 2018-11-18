@@ -1,5 +1,7 @@
 require('dotenv').load();
 const numerOfRetrievingCandles = process.env.numerOfRetrievingCandles;
+const OANDA_TOKEN = process.env.OANDA_TOKEN;
+const DATABASE_URL = process.env.DATABASE_URL
 const shortStochPeriod = process.env.shortStochPeriod;
 const longStochPeriod = process.env.longStochPeriod;
 const stochSmoothD = process.env.stochSmoothD;
@@ -12,7 +14,6 @@ const AOShortPeriod = process.env.AOShortPeriod;
 const AOLongPeriod = process.env.AOLongPeriod;
 const OandaApiBaseURL = process.env.OandaApiBaseURL;
 const nQueryCandles = process.env.nQueryCandles;
-const OANDA_TOKEN = process.env.OANDA_TOKEN;
 const timer = process.env.timer;
 const stochLowerLimit = process.env.stochLowerLimit;
 const stochHigherLimit = process.env.stochHigherLimit;
@@ -20,6 +21,8 @@ const proxy = process.env.proxy;
 
 module.exports =  {
     PORT: 3000,
+    DATABASE_URL,
+    OANDA_TOKEN,
     timer,
     nQueryCandles,
     OandaApiBaseURL,
