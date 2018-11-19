@@ -4,6 +4,7 @@ const logger = require('morgan');
 const proxy = require('express-http-proxy');
 const mongoose = require('mongoose');
 const _ = require('lodash');
+const cors = require('cors');
 
 const oanda = require('./commons/oandaConnection');
 const config = require('./config/config');
@@ -24,6 +25,9 @@ mongoose.connect(config.DATABASE_URL, {
 
 express()
     .use(logger('dev'))
+    .use(cors({
+        'origin': config.ORIGIN
+    }))
     .get('/', (req, res) => {
         const counts = {};
         candleModel.count({'timeframe': 'S30'}).then(count => {
