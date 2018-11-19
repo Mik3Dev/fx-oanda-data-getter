@@ -18,9 +18,11 @@ const timer = process.env.timer;
 const stochLowerLimit = process.env.stochLowerLimit;
 const stochHigherLimit = process.env.stochHigherLimit;
 const proxy = process.env.proxy;
+const ORIGIN = process.env.ORIGIN;
+
 
 module.exports =  {
-    PORT: 3000,
+    PORT: 7000,
     DATABASE_URL,
     OANDA_TOKEN,
     timer,
@@ -41,5 +43,6 @@ module.exports =  {
     AOLongPeriod,
     stochLowerLimit,
     stochHigherLimit,
-    proxy
+    proxy,
+    ORIGIN
 }
