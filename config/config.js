@@ -19,12 +19,14 @@ const stochLowerLimit = process.env.stochLowerLimit;
 const stochHigherLimit = process.env.stochHigherLimit;
 const proxy = process.env.proxy;
 const ORIGIN = process.env.ORIGIN;
+const TIMEFRAME = process.env.TIMEFRAME
 
 
 module.exports =  {
     PORT: 7000,
     DATABASE_URL,
     OANDA_TOKEN,
+    TIMEFRAME,
     timer,
     nQueryCandles,
     OandaApiBaseURL,
